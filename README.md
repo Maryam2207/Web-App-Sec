@@ -1,14 +1,15 @@
 1) Client-side Input Validation:
+   
 -For each input field, this function performs the following actions:
 -Retrieves the form element, its value, and the error message.
 -Applies regex validation using the specified regex.
 -Displays error messages if the input value doesn't match the regex pattern.
 
-The form.html file is the entry point for users, showing the form that will collect user inputs.
+->The form.html file is the entry point for users, showing the form that will collect user inputs.
 
-form.css is linked within index.html to apply custom visual styles to the form.
+->form.css is linked within index.html to apply custom visual styles to the form.
 
-validation.js is used within index.html to validate form inputs both on the client-side and server-side using AJAX.
+->validation.js is used within index.html to validate form inputs both on the client-side and server-side using AJAX.
 
 
 2) Server-side Input Validation:
