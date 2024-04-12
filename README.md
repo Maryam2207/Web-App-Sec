@@ -27,7 +27,15 @@ Validate.js:
 Authentication Layer:
 
 The PHP code for handling the login form submission, including session management, redirection, and authentication logic, is contained in the file login_process.php.
+
 The HTML markup and PHP code for the student details page, together with any logic for obtaining and presenting student data, are contained in the file student_details.php.
+The PHP code starts by checking if the user is logged in using the session variable $_SESSION['user_id'].
+If the user is not logged in, they are redirected to the login page.
+The file includes any necessary PHP files, such as the one for the database connection.
+It then queries the database to retrieve the student details associated with the user ID.
+The retrieved student details are displayed on the page, if available.
+The HTML markup contains placeholders where the student details are inserted using PHP echo statements, and the values are sanitized using htmlspecialchars() to prevent XSS attacks.
+JavaScript files can be included as needed for client-side functionality.
 
 Database Setup:
 Create a MySQL database table to store user credentials. Include fields for email, hashed password, and any other necessary information.
