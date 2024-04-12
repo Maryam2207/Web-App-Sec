@@ -23,3 +23,53 @@ Validate.js:
 -Defines input validation rules using PHP regex functions.
 -Validates each form input using the regex functions and adds errors to the $errors array.
 -Sends JSON-encoded errors or a success message based on the result of the validations.
+
+Authentication Layer:
+
+The PHP code for handling the login form submission, including session management, redirection, and authentication logic, is contained in the file login_process.php.
+The HTML markup and PHP code for the student details page, together with any logic for obtaining and presenting student data, are contained in the file student_details.php.
+
+Database Setup:
+Create a MySQL database table to store user credentials. Include fields for email, hashed password, and any other necessary information.
+Hash the passwords using a strong hashing algorithm like bcrypt before storing them in the database.
+Login Page:
+
+Create a login form where users can input their email and password.
+Validate the inputs (email format, password length, etc.) both client-side and server-side.
+Sanitize the inputs using htmlspecialchars() to prevent XSS attacks.
+Query the database to check if the provided email exists.
+If the email exists, retrieve the hashed password associated with it.
+
+Authentication:
+Compare the hashed password retrieved from the database with the hashed version of the password entered by the user using a function like password_verify().
+If the passwords match, create a session for the user and store their email or user ID in the session data.
+
+Session Management:
+Set up session handling at the beginning of every protected page.
+Check if the user is logged in by verifying the session data.
+If the user is not logged in, redirect them to the login page.
+Validate session data to prevent session fixation and session hijacking.
+
+Access Control:
+Implement access control to restrict certain pages or functionalities to authenticated users only.
+Redirect users to the appropriate page after successful authentication.
+Logout:
+
+
+Defense-In-Depth and Input Validation:
+Implement input validation and sanitation for all user inputs to prevent SQL injection, XSS, and other attacks.
+Use regular expressions (Regex) to whitelist acceptable input formats.
+Sanitize user inputs using htmlspecialchars() or other appropriate methods.
+
+project/
+├── css/
+│   └── styles.css
+├── js/
+│   └── script.js
+├── includes/
+│   └── db_connection.php
+├── login.php
+├── login_process.php
+├── student_details.php
+└── index.php
+
