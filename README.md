@@ -81,3 +81,39 @@ project/
 ├── student_details.php
 └── index.php
 
+Authorization Layer:
+1) User authentication: Make a login page (login_process.php) that allows users to input their password and username/email.
+- Verify the user's credentials by comparing them to a user database.
+- Create a session for the user and temporarily save their email address and password if the credentials are correct.
+- isset($_SESSION['email']) && isset($_SESSION['password']): This checks if the user is logged in. This verifies that the user has signed in before and that their credentials are saved in the session by checking to see if the session variables password and email are set. The user is not logged in if these variables are not set.
+- heading ("Location: login_process.php"): This line sends the user to the login page (login_process.php) if they are not logged in, or if the session variables are not set. By doing this, protected pages are shielded from unwanted access.
+
+2) Session Management: Use session_start() to launch a new session on every page that needs authentication.
+- Check if the user is logged in using the session before granting access to protected pages.
+- session_start(): This function begins or continues a previously started session. Data is persistent between queries thanks to sessions. To track whether a user is logged in or not in this scenario, we use sessions.
+
+3) Define roles and permissions for users in your system (e.g., visitor, user, administrator) using role-based access control (RBAC).
+- Determine which actions each user is capable of performing by implementing access control checks based on their responsibilities.
+- To check the users role and permissions : The user's role is retrieved from the session variable using $_SESSION['role']. What the user may and cannot do depends on their role.
+- Next, the code uses an if-elseif-else block to determine the user's role:
+- The visitor is sent to the login page if they are a guest. Usually, guests can only access particular functions and have restricted access.
+- You can apply particular permission logic for a typical user, enabling them to add, edit, and remove their own data, for example.
+- If the user is an administrator, you can provide them access to view, edit, and remove user data, among other permission logic.
+
+4) Safe Pages: Verify the session to see if the user is logged in on pages that need authentication.
+- If a user is not authenticated, send them to the login page.
+
+5) Set Access Control in Place:
+- Verify the user's role and permissions prior to granting them access to specific functions.
+- Limit a user's role-based access to particular sites or features.
+
+- Display Student details page: The user can access the student details page if they successfully complete the authorization checks. This line only indicates that the visitor has successfully accessed the website by displaying a welcome message.
+
+
+
+
+
+
+
+
+
