@@ -109,6 +109,24 @@ Authorization Layer:
 
 - Display Student details page: The user can access the student details page if they successfully complete the authorization checks. This line only indicates that the visitor has successfully accessed the website by displaying a welcome message.
 
+XSS AND CSRF:
+Policy for Content Security (CSP):The CSP for the page is set using the <meta> tag. By only permitting scripts from the same origin ('self,') this policy prevents cross-site scripting attacks (XSS attacks) by limiting the sources from which different resources (including stylesheets, scripts, etc.) can be loaded.
+
+XSS Protection: To escape special HTML characters (\, >, &, ", ') in user inputs before displaying them back on the website, a JavaScript function called escapeHtml() is defined. This stops dangerous scripts from being injected by attackers through form inputs.
+
+CSRF Defense: PHP echo is used to obtain the CSRF token from the PHP session ($_SESSION["_csrf"]) and insert it into the form. This guarantees that the proper CSRF token is included in every form submission.
+Just before the form is submitted, the setCsrfToken() JavaScript method dynamically sets the CSRF token.
+
+Server side 
+CSRF Token Generation: The PHP script initiates or continues a session (session_start()) upon execution.
+It generates a new random token (bin2hex(random_bytes(32))) and puts it in the session if the CSRF token ($_SESSION['_csrf']) doesn't exist.
+
+Form Submission Handling: The PHP script verifies the CSRF token when the form is submitted ($_SERVER['REQUEST_METHOD'] === 'POST').
+Using hash_equals() for a secure comparison, it determines whether the CSRF token kept in the session ($_SESSION['_csrf']) and the one sent with the form ($_POST['_csrf']) match.
+It processes the form data securely (e.g., by escaping HTML characters using htmlspecialchars()) if the CSRF token is valid.
+
+
+
 
 
 
