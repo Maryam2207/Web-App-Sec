@@ -42,6 +42,51 @@
         </div>
     </div>
     <script src="js/validation.js"></script>
+    <script>
+        // Function to escape special HTML characters to prevent XSS
+        function escapeHtml(unsafe) {
+            return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
 
+        // Function to set CSRF token for requests
+        function setCsrfToken() {
+            const csrfToken = '<?php echo htmlspecialchars($_SESSION["_csrf"]); ?>';
+            document.querySelector('input[name="_csrf"]').value = csrfToken;
+        }
+    </script>
+</head>
+<body>
+    <h1>Secure Form</h1>
+    <form method="POST" action="/submit" onsubmit="setCsrfToken()">
+        <!-- Cross-Site Request Forgery (CSRF) Token -->
+        <input type="hidden" name="_csrf" value="">
+
+        <!-- Other form fields (example: username and password) -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+        // XSS Defense: Escape user inputs before displaying them
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+
+            // Escape HTML characters to prevent XSS
+            usernameInput.value = escapeHtml(usernameInput.value);
+            passwordInput.value = escapeHtml(passwordInput.value);
+        });
+    </script>
+</body>
 
 </html>
